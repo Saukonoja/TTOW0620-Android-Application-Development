@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">BasicUI</string>
+    <string name="radio_one">One</string>
+    <string name="radio_two">Two</string>
+    <string name="radio_three">Three</string>
+    <string name="radio_four">Four</string>
+    <string name="btn_select">Select</string>
+    <string name="btn_ui">UI2</string>
+    <string name="btn_login">Login</string>
+    <string name="text_name">Username</string>
+    <string name="text_password">Password</string>
+</resources>
