@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Exercise38</string>
+    <string name="action_dialog">Open dialog</string>
+    <string name="action_notification">Launch Notification</string>
+    <string name="action_quit">Quit</string>
+    <string name="dialog_title">Quit?</string>
+    <string name="dialog_exit">Exit app</string>
+    <string name="dialog_yes">Yes</string>
+    <string name="dialog_cancel">cancel</string>
+</resources>
+

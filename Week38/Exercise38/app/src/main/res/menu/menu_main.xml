@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_heart"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/ic_heart"
+        android:title="@string/action_dialog"/>
+    <item
+        android:id="@+id/action_copyr"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/ic_copyr"
+        android:title="@string/action_notification"/>
+    <item
+        android:id="@+id/action_quit"
+        app:showAsAction="never"
+        android:title="@string/action_quit"/>
+</menu>
