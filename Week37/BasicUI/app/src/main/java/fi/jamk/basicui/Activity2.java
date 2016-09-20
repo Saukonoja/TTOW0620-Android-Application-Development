@@ -2,9 +2,11 @@ package fi.jamk.basicui;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.TextView;
+import android.widget.EditText;
+import android.widget.Toast;
 
 public class Activity2 extends AppCompatActivity {
 
@@ -23,9 +25,15 @@ public class Activity2 extends AppCompatActivity {
 
     }
 
-    public void loginButtonClicked(){
-        AutoCompleteTextView loginText = (AutoCompleteTextView) FindViewByID(R.id.editText);
-        TextView textview = (TextView) FindViewByID(R.id.editText2);
+    public void loginButtonClicked(View view){
+        AutoCompleteTextView loginText = (AutoCompleteTextView) findViewById(R.id.editText);
+        EditText passText = (EditText) findViewById(R.id.editText2);
+
+        String uname = loginText.getText().toString();
+        String pass = passText.getText().toString();
+
+        Toast.makeText(getApplicationContext(), uname +  " " + pass, Toast.LENGTH_LONG).show();
+
 
     }
 
