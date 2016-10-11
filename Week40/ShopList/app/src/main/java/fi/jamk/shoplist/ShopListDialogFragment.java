@@ -13,7 +13,7 @@ import android.widget.EditText;
 public class ShopListDialogFragment extends DialogFragment {
 
     public interface DialogListener {
-        public void onDialogPositiveClick(DialogFragment dialog, String product, int count, float price);
+        public void onDialogPositiveClick(DialogFragment dialog, String product, int count, double price);
         public void onDialogNegativeClick(DialogFragment dialog);
     }
 
@@ -36,26 +36,21 @@ public class ShopListDialogFragment extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
-        // create a new AlertDialog
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-
-        // Get the layout inflater
         LayoutInflater inflater = getActivity().getLayoutInflater();
 
-        // Inflate and set the layout for the dialog
-        // Pass null as the parent view because its going in the dialog layout
         final View dialogView = inflater.inflate(R.layout.dialog, null);
         builder.setView(dialogView)
-                .setTitle("Add a new Highscore")
-                // Add action buttons
+                .setTitle("Add a new Product")
                 .setPositiveButton("Add", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        // find a name and score
-                        EditText editName = (EditText) dialogView.findViewById(R.id.product);
-                        String name = editName.getText().toString();
-                        EditText editScore = (EditText) dialogView.findViewById(R.id.count);
-                        int score = Integer.valueOf(editScore.getText().toString());
+                        EditText editProduct = (EditText) dialogView.findViewById(R.id.product);
+                        String product = editProduct.getText().toString();
+                        EditText editCount = (EditText) dialogView.findViewById(R.id.count);
+                        int count = Integer.valueOf(editCount.getText().toString());
+                        EditText editPrice = (EditText) dialogView.findViewById(R.id.price);
+                        double price = Double.valueOf(editPrice.getText().toString());
                         // Send the positive button event back to the host activity
                         mListener.onDialogPositiveClick(ShopListDialogFragment.this,product,count,price);
                     }
