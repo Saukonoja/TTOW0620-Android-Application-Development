@@ -1,11 +1,16 @@
 package fi.jamk.golfapp;
 
+import android.content.Context;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -13,6 +18,8 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -42,35 +49,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(map);
 
+
+        mapFragment.getMapAsync(this);
         FetchDataTask task = new FetchDataTask();
         task.execute("http://ptm.fi/jamk/android/golf_courses.json");
-        mapFragment.getMapAsync(this);
-
-        // Setting a custom info window adapter for the google map
-
-
 
     }
 
 
-
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
-        //mMap.setInfoWindowAdapter(new PopupAdapter(getLayoutInflater()));
-        //mMap.setOnInfoWindowClickListener((GoogleMap.OnInfoWindowClickListener) this);
-
-
 
     }
 
@@ -103,12 +92,29 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         protected void onPostExecute(JSONObject json) {
             try {
                 golfcourses = json.getJSONArray("kentat");
+                BitmapDescriptor bitmapDescriptor = null;
                 for (int i=0;i < golfcourses.length();i++) {
                     JSONObject hs = golfcourses.getJSONObject(i);
                     LatLng latlng = new LatLng(hs.getDouble("lat"),hs.getDouble("lng"));
+
+                    if (hs.getString("Tyyppi").contains("?")){
+                        bitmapDescriptor = (BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
+                    }
+                    if (hs.getString("Tyyppi").contains("Etu")){
+                        bitmapDescriptor = (BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+                    }
+                    if (hs.getString("Tyyppi").contains("Kulta")){
+                        bitmapDescriptor = (BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW));
+                    }
+                    if (hs.getString("Tyyppi").contains("Kulta/Etu")){
+                        bitmapDescriptor = (BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
+                    }
+
                     final Marker markers = mMap.addMarker(new MarkerOptions()
                             .position(latlng)
-                            .title(hs.getString("Kentta")+"\n" + hs.getString("Osoite") +"\n"+ hs.getString("Puhelin") +"\n"+ hs.getString("Sahkoposti") ));
+                            .title(hs.getString("Kentta"))
+                            .snippet(hs.getString("Osoite") + "\n" + hs.getString("Puhelin") + "\n" + hs.getString("Sahkoposti") + "\n" + hs.getString("Webbi"))
+                            .icon(bitmapDescriptor));
 
                     mMap.moveCamera(CameraUpdateFactory.newLatLng(latlng));
 
@@ -123,20 +129,23 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     @Override
                     public View getInfoContents(Marker marker) {
 
-                        View v = getLayoutInflater().inflate(R.layout.popup, null);
+                        Context context = getApplicationContext();
 
-                        TextView addr= (TextView) v.findViewById(R.id.osoite);
+                        LinearLayout info = new LinearLayout(context);
+                        info.setOrientation(LinearLayout.VERTICAL);
+                        TextView title = new TextView(context);
+                        title.setTextColor(Color.BLACK);
+                        title.setGravity(Gravity.CENTER);
+                        title.setTypeface(null, Typeface.BOLD);
+                        title.setText(marker.getTitle());
+                        TextView snippet = new TextView(context);
+                        snippet.setTextColor(Color.GRAY);
+                        snippet.setText(marker.getSnippet());
 
-                        TextView phone= (TextView) v.findViewById(R.id.puhelin);
+                        info.addView(title);
+                        info.addView(snippet);
 
-                        TextView email= (TextView) v.findViewById(R.id.sposti);
-
-                        addr.setText(marker.getSnippet());
-
-                        phone.setText(marker.getSnippet());
-                        email.setText(marker.getSnippet());
-
-                        return v;
+                        return info;
                     }
                 });
 
