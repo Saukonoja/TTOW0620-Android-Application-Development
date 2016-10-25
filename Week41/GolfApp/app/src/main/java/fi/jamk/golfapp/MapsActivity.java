@@ -52,7 +52,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         mapFragment.getMapAsync(this);
         FetchDataTask task = new FetchDataTask();
-        task.execute("http://ptm.fi/jamk/android/golf_courses.json");
+        task.execute("http://ptm.fi/jamk/android/golfcourses/golf_courses.json");
 
     }
 
