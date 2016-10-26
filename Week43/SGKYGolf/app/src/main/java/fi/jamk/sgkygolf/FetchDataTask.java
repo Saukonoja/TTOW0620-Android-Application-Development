@@ -16,9 +16,17 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-class FetchDataTask extends AsyncTask<String, Void, JSONObject> {
+public class FetchDataTask extends AsyncTask<String, Void, JSONObject> {
 
     JSONObject json = null;
+    private JSONArray golfcourses;
+    private List<GolfCourse> golfcoureslist;
+
+
+    public AsyncJsonResponse delegate = null;
+
+
+
     @Override
     protected JSONObject doInBackground(String... urls) {
         HttpURLConnection urlConnection = null;
@@ -45,10 +53,21 @@ class FetchDataTask extends AsyncTask<String, Void, JSONObject> {
     }
 
     protected void onPostExecute(JSONObject json) {
-        getJSON();
+        try {
+            golfcourses = json.getJSONArray("kentat");
+            golfcoureslist = new ArrayList<>();
+            for (int i=0;i < golfcourses.length();i++) {
+                JSONObject hs = golfcourses.getJSONObject(i);
 
+                golfcoureslist.add(new GolfCourse(hs.getString("Kentta"), hs.getString("Osoite"), hs.getString("Sahkoposti"), hs.getString("Puhelin"), hs.getString("Webbi"), hs.getString("Kuva")));
+
+            }
+
+        } catch (JSONException e) {
+            Log.e("JSON", "Error getting data.");
+        }
+
+        delegate.onFetchDataTaskComplete(golfcoureslist);
     }
-    protected JSONObject getJSON(){
-        return json;
-    }
+
 }

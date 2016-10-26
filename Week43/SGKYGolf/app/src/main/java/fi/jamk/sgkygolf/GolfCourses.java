@@ -15,31 +15,17 @@ import java.util.List;
 
 public class GolfCourses {
 
-    private JSONArray golfcourses;
-    private List<GolfCourse> golfcoureslist;
 
 
     // just fake some data
     public void initializeData(JSONObject json) {
 
-        try {
-            golfcourses = json.getJSONArray("kentat");
-            golfcoureslist = new ArrayList<>();
-            for (int i=0;i < golfcourses.length();i++) {
-                JSONObject hs = golfcourses.getJSONObject(i);
 
-                golfcoureslist.add(new GolfCourse(hs.getString("Kentta"), hs.getString("Osoite"), hs.getString("Sahkoposti"), hs.getString("Puhelin"), hs.getString("Webbi"), hs.getString("Kuva")));
-
-            }
-
-        } catch (JSONException e) {
-            Log.e("JSON", "Error getting data.");
-        }
     }
 
     // return employee list
-    public List<GolfCourse> getGolfcourses() {
-        return golfcoureslist;
-    }
+    //public List<GolfCourse> getGolfcourses() {
+      //  return golfcoureslist;
+    //}
 
 }
