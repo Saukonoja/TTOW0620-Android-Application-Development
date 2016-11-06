@@ -5,7 +5,7 @@
 
     <android.support.v7.widget.CardView
         android:foreground="?android:attr/selectableItemBackground"
-        android:id="@+id/employeeCardView"
+        android:id="@+id/golfCardView"
         android:layout_gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -21,36 +21,36 @@
                 android:layout_marginRight="4dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/employeeImageView" />
+                android:id="@+id/golfImageView" />
 
             <TextView
-                android:layout_toRightOf="@+id/employeeImageView"
+                android:layout_toRightOf="@+id/golfImageView"
                 android:layout_alignParentTop="true"
-                android:id="@+id/employeeNameTextView"
+                android:id="@+id/golfNameTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20sp" />
 
             <TextView
-                android:layout_toRightOf="@+id/employeeImageView"
-                android:layout_below="@id/employeeNameTextView"
-                android:id="@+id/employeePositionTextView"
+                android:layout_toRightOf="@+id/golfImageView"
+                android:layout_below="@id/golfNameTextView"
+                android:id="@+id/golfAddressTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="16sp" />
 
             <TextView
-                android:layout_toRightOf="@+id/employeeImageView"
-                android:layout_below="@id/employeePositionTextView"
-                android:id="@+id/employeeEmailTextView"
+                android:layout_toRightOf="@+id/golfImageView"
+                android:layout_below="@id/golfAddressTextView"
+                android:id="@+id/golfPhoneTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="16sp" />
 
             <TextView
-                android:layout_toRightOf="@+id/employeeImageView"
-                android:layout_below="@id/employeeEmailTextView"
-                android:id="@+id/employeePhoneTextView"
+                android:layout_toRightOf="@+id/golfImageView"
+                android:layout_below="@id/golfPhoneTextView"
+                android:id="@+id/golfEmailTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="16sp" />
